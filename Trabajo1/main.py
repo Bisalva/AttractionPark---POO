@@ -14,9 +14,14 @@ visitante_item_c = Visitante(nombre="Felipe",edad=7,altura=1.30,dinero=3000,tick
 
 atraccion_item_INF.verificar_atraccion(visitante_item_a.edad)
 
-print (visitante_item_a.info())
 atraccion_item_A.comenzar_mantenimiento()
-print (atraccion_item_A.estadoInfo())
+atraccion_item_A.iniciar_ronda()
 atraccion_item_A.finalizar_mantenimiento()
-print (atraccion_item_A.estadoInfo())
+
+
+# atraccion_item_A.iniciar_ronda() - Llama la funcion
+# atraccion_item_INF.iniciar_ronda() Llama la funcion desde la Herencia
+# print (atraccion_item_INF.info()) - Imprime la informacion de Atraccion (Herencia)
+# print (atraccion_item_A.estadoInfo()) - Imprime la informacion de Atraccion
+# print (visitante_item_a.info()) - Imprime la informacion de Visitante
 
