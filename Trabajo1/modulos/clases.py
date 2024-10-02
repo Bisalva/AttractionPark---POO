@@ -13,16 +13,17 @@ class Visitante():
         self.tickets = tickets
     
     def info(self):
-          return f"{self.nombre} - {self.edad} - {self.altura} - {self.dinero} - {self.tickets}"
+        print("opa")
+        return f"{self.nombre} - {self.edad} - {self.altura} - {self.dinero} - {self.tickets}"
         
-    def comprar_ticket(self,Atraccion):
+    def comprar_ticket(self):
           
           pass
     
-    def entregrar_ticket(self,Atraccion):
+    def entregrar_ticket(self):
           pass
     
-    def hacer_cola(self,Atraccion):
+    def hacer_cola(self):
           pass
     def returnEdad(self):
         return self.edad
@@ -46,12 +47,15 @@ class Atraccion:
          pass
 
     def comenzar_mantenimiento(self):
-         pass
-
+        self.estado = Estado.FUERA_DE_SERVICIO
+        print("Comenzó el Mantenimiento")
+        
     def finalizar_mantenimiento(self):
-         pass
-    
-          
+        self.estado = Estado.ACTIVO
+        print("Finalizó el Mantenimiento")
+
+    def estadoInfo(self):
+        return f"{self.estado}"
     
     
 
@@ -63,9 +67,9 @@ class Atraccion_Infantil(Atraccion):#Herencia revisar
     def info(self):
         return f"{self.edad_limite} - {self.nombre}"
     
-    def verificar_atraccion(self):#validar edad solo pueden 10 años o menos
-        if(self.edad == Atraccion):
-            print("hola")
+    def verificar_atraccion(self,edad_revision):#validar edad solo pueden 10 años o menos
+        if(edad_revision > self.edad_limite):
+            print("\nLa entrada a esta atraccion esta prohibida a mayores de 10 años, acceso denegado\n")
       
 class Montaña_Rusa(Atraccion):
       def __init__(self,velocidad_maxima,altura_maxima,extension,nombre,capacidad,duracion,estado,cola):
