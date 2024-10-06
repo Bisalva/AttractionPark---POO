@@ -3,3 +3,5 @@
 Primer trabajo de Base de Datos 2 Usando Python POO.
 
 **- Profesor : Diego Alvarez**
+
+**Autor : Benjamin Sanhueza**
