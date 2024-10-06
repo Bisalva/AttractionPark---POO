@@ -2,6 +2,6 @@
 
 Primer trabajo de Base de Datos 2 Usando Python POO.
 
-**- Profesor : Diego Alvarez**
+- Profesor : Diego Alvarez , UMAG 2024
 
 **Autor : Benjamin Sanhueza**
