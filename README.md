@@ -8,4 +8,4 @@
 **Autor : Benjamin Sanhueza**
 
 >[!tip]
-> Proyecto personal para practicar Python y se avanzara en tiempos libres
+> Proyecto personal para practicar Python y se avanzara solo en tiempos libres
