@@ -33,8 +33,8 @@ class Visitante :
     
     def hacer_cola(self):
           pass
-    def returnEdad(self):
-        return self.edad
+    def mostrar_dinero(self):
+        print(f"A {self.nombre} le quedan {self.dinero}")
     
     
 class Atraccion:
@@ -58,7 +58,7 @@ class Atraccion:
         self.estado = Estado.ACTIVO
         
     def estadoInfo(self,numRandom):
-        if(numRandom == 1):
+        if numRandom == 1:
             Atraccion.comenzar_mantenimiento(self)
         else:
             Atraccion.finalizar_mantenimiento(self)
@@ -99,37 +99,47 @@ class Ticket:
 
 
 class Parque():
-    def __init__(self,nombre,juegos):
+
+
+    def __init__(self,nombre,juegos,dinero_generado):
         self.nombre = nombre
         self.juegos = juegos
+        self.dinero_generado = dinero_generado
 
     def consultar_juegos_activos(self,estadoA,estadoB,estadoC,estadoD,nameA,nameB,nameC,nameD):
-            # activo = 1
-            # fuera_servicio = 0
-            if(estadoA == Estado.ACTIVO):
-                print(f"{nameA} - en funcionamiento")
-            elif(estadoA == Estado.FUERA_DE_SERVICIO):
-                print(f"{nameA} - en mantenimiento")
-            if(estadoB == Estado.ACTIVO):
-                print(f"{nameB} - en funcionamiento")
-            elif(estadoB == Estado.FUERA_DE_SERVICIO):
-                print(f"{nameB} - en mantenimiento")
-            if(estadoC == Estado.ACTIVO):
-                print(f"{nameC} - en funcionamiento")
-            elif(estadoC == Estado.FUERA_DE_SERVICIO):
-                print(f"{nameC} - en mantenimiento")
-            if(estadoD == Estado.ACTIVO):
-                print(f"{nameD} - en funcionamiento")
-            elif(estadoD == Estado.FUERA_DE_SERVICIO):
-                print(f"{nameD} - en mantenimiento")
+        # activo = 1
+        # fuera_servicio = 0
+        if estadoA == Estado.ACTIVO :
+            print(f"{nameA} - en funcionamiento")
+        elif estadoA == Estado.FUERA_DE_SERVICIO :
+            print(f"{nameA} - en mantenimiento")
+        if estadoB == Estado.ACTIVO :
+            print(f"{nameB} - en funcionamiento")
+        elif estadoB == Estado.FUERA_DE_SERVICIO :
+            print(f"{nameB} - en mantenimiento")
+        if estadoC == Estado.ACTIVO :
+            print(f"{nameC} - en funcionamiento")
+        elif estadoC == Estado.FUERA_DE_SERVICIO :
+            print(f"{nameC} - en mantenimiento")
+        if estadoD == Estado.ACTIVO :
+            print(f"{nameD} - en funcionamiento")
+        elif estadoD == Estado.FUERA_DE_SERVICIO:
+            print(f"{nameD} - en mantenimiento")
 
 
       
-    def cobrar_ticket(self,Visitante,Atraccion):
-      pass
+    def cobrar_ticket(self,atraccionPrecio,visitanteDinero):
       
+        visitanteDinero -= atraccionPrecio
+        self.dinero_generado += atraccionPrecio
+
+        return visitanteDinero
+
     def resumen_de_ventas(self,dia):
-      pass
+
+        print(f"Dinero generado desde Apertura : {self.dinero_generado}")
+
+
 
 
 

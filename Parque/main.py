@@ -1,7 +1,7 @@
 from modulos.clases import *
 import random
 
-parque = Parque(nombre="Praderas", juegos=["Paseo Verde","Paseo Azul","Paseo Infantil","Montaña Rusa"])
+parque = Parque(nombre="Praderas",juegos=["Paseo Verde","Paseo Azul","Paseo Infantil","Montaña Rusa"],dinero_generado=0)
 
 atraccion_item_A = Atraccion(nombre="PaseoVerde",capacidad=10,duracion=10,estado=Estado.ACTIVO,cola=0)
 atraccion_item_B = Atraccion(nombre="PaseoAzul",capacidad=5,duracion=10,estado=Estado.ACTIVO,cola=0)
@@ -21,6 +21,8 @@ while True :
 
     dia += 1
     
+
+
     print("\n====Parque de Atracciones====\n")
     print("Dia : ",dia)
     print(f"El dia de hoy entran al parque {Visitante.contar_visitante()} visitantes")
@@ -32,15 +34,13 @@ while True :
     atraccion_item_B.estadoInfo(random.randint(1,2))
     atraccion_item_INF.estadoInfo(random.randint(1,2))
     atraccion_item_MONTAÑA.estadoInfo(random.randint(1,2))
-    # 1 = Paseo Verde
-    # 2 = Paseo Azul
-    # 3 = Paseo Infantil
-    # 4 = Montaña Rusa
-
+    
     # Metodo que entrega una lista con el estado de cada juego ( Cada dia cambia )
     parque.consultar_juegos_activos(atraccion_item_A.estado,atraccion_item_B.estado,atraccion_item_INF.estado,atraccion_item_MONTAÑA.estado,atraccion_item_A.nombre,atraccion_item_B.nombre,atraccion_item_INF.nombre,atraccion_item_MONTAÑA.nombre)
 
-
+    
+    visitante_item_a.dinero = parque.cobrar_ticket(1000,visitante_item_a.dinero)
+    
     for _ in range(Visitante.contar_visitante()):
         compraRandom = random.randint(1,4)
         # 1 = Paseo Verde
@@ -48,7 +48,15 @@ while True :
         # 3 = Paseo Infantil
         # 4 = Montaña Rusa
 
-    
+
+    print("\n")
+    visitante_item_a.mostrar_dinero()
+    visitante_item_b.mostrar_dinero()
+    visitante_item_c.mostrar_dinero()
+
+    print("\n")
+    parque.resumen_de_ventas(dia)
+
     #opcion = int(input("\nSalir de la Simulacion del Parque :\n 1 - SI \n 2 - NO \n Opcion : "))
     print("\n")
     opcion = 1
@@ -61,7 +69,7 @@ while True :
 
 
 
-
+# visitante_item_a.dinero = parque.cobrar_ticket(1000,visitante_item_a.dinero) - ej : Actualizar valores de 1 objeto
 # atraccion_item_INF.verificar_atraccion(visitante_item_a.edad) - Llama a una funcion con parametros a usar 
 # atraccion_item_A.iniciar_ronda() - Llama la funcion
 # atraccion_item_INF.iniciar_ronda() Llama la funcion desde la Herencia
