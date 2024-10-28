@@ -65,26 +65,23 @@ class Atraccion:
         #paseoverde paseoazul paseoinfantil montañarusa
         if(nombre == "PaseoVerde" and cola > 0):
             self.cola -= 1
-        elif(nombre == "PaseoAzul" and cola >0):
+        elif(nombre == "PaseoAzul" and cola > 0):
             if(cola < 3):
                 self.cola = 0
             else:
                 self.cola -= 3
-        elif(nombre == "PaseoInfantil" and cola >= 2):
+        elif(nombre == "PaseoInfantil" and cola > 0):
             if(cola < 2):
                 self.cola = 0
             else:
                 self.cola -= 2
-        elif(nombre == "MontañaRusa" and cola >= 1):
+        elif(nombre == "MontañaRusa" and cola > 0):
             self.cola -=1
 
         print(f"Se inicia la ronda de {nombre}, las personas que hay actualmente en cola son : {self.cola}")
     
     def contar_cola(self):
         self.cola += 1
-
-    def borrar_cola(self):
-        self.cola -= 1
 
     def estado_cola(self):
         print("La cola en ",self.nombre,"es de : ",self.cola)
@@ -108,10 +105,12 @@ class Atraccion_Infantil(Atraccion):
         super().__init__(nombre,capacidad,duracion,estado,cola)
         self.edad_limite = edad_limite 
     
-    def verificar_atraccion(self,edad_revision):#validar edad solo pueden 10 años o menos
-        if(edad_revision > self.edad_limite):
+    def verificar_atraccion(self,edad):#validar edad solo pueden 10 años o menos
+        if(edad > self.edad_limite):
             print("\nLa entrada a esta atraccion esta prohibida a mayores de 10 años, acceso denegado\n")
-
+            return False
+        else:
+            return True
       
 class Montaña_Rusa(Atraccion):
     def __init__(self,velocidad_maxima,altura_maxima,extension,nombre,capacidad,duracion,estado,cola):
@@ -144,9 +143,6 @@ class Ticket:
 
     def getID(self):
         return Ticket.idTicket
-
-    def obtener_ticket(self,atracc_num):
-        pass
 
 
 class Parque():
@@ -186,10 +182,11 @@ class Parque():
 
         return visitanteDinero
 
-    def resumen_de_ventas(self,dia,dineroDia):
+    def resumen_de_ventas(self,dia,dineroDia,tickets):
 
         print(f"Dinero generado durante el dia #{dia}: {dineroDia}")
         print(f"Dinero generado desde Apertura : {self.dinero_generado}")
+        print(f"Tickets totales vendidos : {tickets}")
 
 
 

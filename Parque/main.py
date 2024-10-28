@@ -9,9 +9,9 @@ atraccion_item_INF = Atraccion_Infantil(edad_limite=10,nombre="PaseoInfantil",ca
 atraccion_item_MONTAÑA = Montaña_Rusa(velocidad_maxima=10,altura_maxima=140,extension=1000,nombre="MontañaRusa",capacidad=1,duracion=10,estado=Estado.ACTIVO,cola=0)
 #Los parametros tienen su nombre correspondiente para un mayor entendimiento al ser muchas variables ; ej : nombre = "paseoInfantil"
 
-visitante_item_a = Visitante(nombre="Benja",edad=25,altura=1.77,dinero=50000,tickets = [0,0,0,0])
-visitante_item_b = Visitante(nombre="Nico",edad=20,altura=1.80,dinero=70000,tickets = [0,0,0,0])
-visitante_item_c = Visitante(nombre="Felipe",edad=7,altura=1.30,dinero=30000,tickets = [0,0,0,0])
+visitante_item_a = Visitante(nombre="Benja",edad=25,altura=177,dinero=50000,tickets = [0,0,0,0])
+visitante_item_b = Visitante(nombre="Nico",edad=20,altura=180,dinero=70000,tickets = [0,0,0,0])
+visitante_item_c = Visitante(nombre="Felipe",edad=7,altura=130,dinero=30000,tickets = [0,0,0,0])
 #En mi script se usaran 3 objetos visitante, pero se pueden agregar los que se requieran
 
 dia = 0
@@ -34,6 +34,7 @@ while True :
     atraccion_item_B.estadoInfo(random.randint(1,2))
     atraccion_item_INF.estadoInfo(random.randint(1,2))
     atraccion_item_MONTAÑA.estadoInfo(random.randint(1,2))
+    
     
     # Metodo que entrega una lista con el estado de cada juego ( Cada dia cambia )
     #parque.consultar_juegos_activos(atraccion_item_A.estado,atraccion_item_B.estado,atraccion_item_INF.estado,atraccion_item_MONTAÑA.estado,atraccion_item_A.nombre,atraccion_item_B.nombre,atraccion_item_INF.nombre,atraccion_item_MONTAÑA.nombre)
@@ -139,7 +140,7 @@ while True :
 
 
     visitante_item_a.entregrar_ticket(selecA,ticketA.atraccion)
-
+    #AQUI RESTRICCION
     
 
     if(ticketA.atraccion == "Paseo Verde"):
@@ -149,8 +150,9 @@ while True :
         visitante_item_a.hacer_cola(atraccion_item_B.nombre)
         atraccion_item_B.contar_cola()
     if(ticketA.atraccion == "Paseo Infantil"):
-        visitante_item_a.hacer_cola(atraccion_item_INF.nombre)
-        atraccion_item_INF.contar_cola()
+        if atraccion_item_INF.verificar_atraccion(visitante_item_a.edad) == True:
+            visitante_item_a.hacer_cola(atraccion_item_INF.nombre)
+            atraccion_item_INF.contar_cola()
     if(ticketA.atraccion == "Montaña Rusa"):
         visitante_item_a.hacer_cola(atraccion_item_MONTAÑA.nombre)
         atraccion_item_MONTAÑA.contar_cola()
@@ -165,8 +167,9 @@ while True :
         visitante_item_b.hacer_cola(atraccion_item_B.nombre)
         atraccion_item_B.contar_cola()
     if(ticketB.atraccion == "Paseo Infantil"):
-        visitante_item_b.hacer_cola(atraccion_item_INF.nombre)
-        atraccion_item_INF.contar_cola()
+        if atraccion_item_INF.verificar_atraccion(visitante_item_b.edad) == True:
+            visitante_item_b.hacer_cola(atraccion_item_INF.nombre)
+            atraccion_item_INF.contar_cola()
     if(ticketB.atraccion == "Montaña Rusa"):
         visitante_item_b.hacer_cola(atraccion_item_MONTAÑA.nombre)
         atraccion_item_MONTAÑA.contar_cola()
@@ -181,8 +184,9 @@ while True :
         visitante_item_c.hacer_cola(atraccion_item_B.nombre)
         atraccion_item_B.contar_cola()
     if(ticketC.atraccion == "Paseo Infantil"):
-        visitante_item_c.hacer_cola(atraccion_item_INF.nombre)
-        atraccion_item_INF.contar_cola()
+        if atraccion_item_INF.verificar_atraccion(visitante_item_c.edad) == True:
+            visitante_item_c.hacer_cola(atraccion_item_INF.nombre)
+            atraccion_item_INF.contar_cola()
     if(ticketC.atraccion == "Montaña Rusa"):
         visitante_item_c.hacer_cola(atraccion_item_MONTAÑA.nombre)
         atraccion_item_MONTAÑA.contar_cola()
@@ -196,11 +200,31 @@ while True :
 
     print("\n")
 
-    atraccion_item_A.iniciar_ronda(atraccion_item_A.nombre,atraccion_item_A.cola)
-    atraccion_item_B.iniciar_ronda(atraccion_item_B.nombre,atraccion_item_B.cola)
-    atraccion_item_INF.iniciar_ronda(atraccion_item_INF.nombre,atraccion_item_INF.cola)
-    atraccion_item_MONTAÑA.iniciar_ronda(atraccion_item_MONTAÑA.nombre,atraccion_item_MONTAÑA.cola)
-    
+    while True:
+        print("\n")
+        if atraccion_item_A.cola != 0:
+            atraccion_item_A.iniciar_ronda(atraccion_item_A.nombre,atraccion_item_A.cola)
+        if atraccion_item_B.cola != 0:
+            atraccion_item_B.iniciar_ronda(atraccion_item_B.nombre,atraccion_item_B.cola)
+        if atraccion_item_INF.cola !=0:
+            atraccion_item_INF.iniciar_ronda(atraccion_item_INF.nombre,atraccion_item_INF.cola)
+        if atraccion_item_MONTAÑA.cola !=0:
+            atraccion_item_MONTAÑA.iniciar_ronda(atraccion_item_MONTAÑA.nombre,atraccion_item_MONTAÑA.cola)
+
+        if atraccion_item_A.cola != 0 or atraccion_item_B.cola != 0 or atraccion_item_INF.cola != 0 or atraccion_item_MONTAÑA.cola != 0:
+            print("\n")
+            if atraccion_item_A.cola != 0:
+                atraccion_item_A.iniciar_ronda(atraccion_item_A.nombre,atraccion_item_A.cola)
+            if atraccion_item_B.cola != 0:
+                atraccion_item_B.iniciar_ronda(atraccion_item_B.nombre,atraccion_item_B.cola)
+            if atraccion_item_INF.cola !=0:
+                atraccion_item_INF.iniciar_ronda(atraccion_item_INF.nombre,atraccion_item_INF.cola)
+            if atraccion_item_MONTAÑA.cola !=0:
+                atraccion_item_MONTAÑA.iniciar_ronda(atraccion_item_MONTAÑA.nombre,atraccion_item_MONTAÑA.cola)
+
+        
+        if atraccion_item_A.cola == 0 and atraccion_item_B.cola == 0 and atraccion_item_INF.cola == 0 and atraccion_item_MONTAÑA.cola == 0:
+            break        
 
 
 
@@ -217,7 +241,7 @@ while True :
     dineroDiaTotal = dineroDiaEntrada - dineroDiaCierre
 
     #Print de las ganancias desde la apertura
-    parque.resumen_de_ventas(dia,dineroDiaTotal)
+    parque.resumen_de_ventas(dia,dineroDiaTotal,Ticket.idTicket)
 
     opcion = int(input("\nSalir de la Simulacion del Parque :\n 1 - SI \n 2 - NO \n Opcion : "))
     print("\n")
