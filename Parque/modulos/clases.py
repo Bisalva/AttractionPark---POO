@@ -5,7 +5,7 @@ class Estado(Enum):
       ACTIVO = 1
       FUERA_DE_SERVICIO = 0
 
-class Visitante :
+class Visitante():
 
     visitantes = 0
 
@@ -17,16 +17,23 @@ class Visitante :
         self.tickets = tickets
         Visitante.visitantes += 1
     
-    # def info(self):
-    #    return f"{self.nombre} - {self.edad} - {self.altura} - {self.dinero} - {self.tickets}"
-    # Metodo para devolver la informacion de los objetos creados, utilizada para verificacion
-    
-    def contar_visitante(): # Metodo que retorna la cantidad de objetos creados, en este caso cuantos visitantes ingresan
+    # Metodo que retorna la cantidad de objetos creados, en este caso cuantos visitantes ingresan
+    def contar_visitante(): 
         return Visitante.visitantes
         
-    def comprar_ticket(self):
-          
-          pass
+    def comprar_ticket(self,atraccion):
+        
+        # 1 = Paseo Verde ; 2 = Paseo Azul ; 3 = Paseo Infantil ; 4 = Montaña Rusa
+        if atraccion == 1:
+            self.tickets[0] += 1
+        elif atraccion == 2:
+            self.tickets[1] += 1
+        elif atraccion == 3:
+            self.tickets[2] += 1
+        elif atraccion == 4:
+            self.tickets[3] += 1
+        
+        print (self.tickets)
     
     def entregrar_ticket(self):
           pass
@@ -62,8 +69,7 @@ class Atraccion:
             Atraccion.comenzar_mantenimiento(self)
         else:
             Atraccion.finalizar_mantenimiento(self)
-        
-    
+            
     
 
 class Atraccion_Infantil(Atraccion):
@@ -91,11 +97,25 @@ class Montaña_Rusa(Atraccion):
 
 
 class Ticket:
+    idTicket = 0
     def __init__(self,numero,atraccion,precio,fecha_compra):
         self.numero = numero
         self.atraccion = atraccion
         self.precio = precio
         self.fecha_compra = fecha_compra
+        Ticket.idTicket += 1
+
+    def asignar(self,atraccion,precio,fecha):
+        self.numero = Ticket.getID
+        self.atraccion = atraccion
+        self.precio = precio
+        self.fecha_compra = fecha
+
+    def getID(self):
+        return Ticket.idTicket
+
+    def obtener_ticket(self,atracc_num):
+        pass
 
 
 class Parque():
@@ -135,8 +155,9 @@ class Parque():
 
         return visitanteDinero
 
-    def resumen_de_ventas(self,dia):
+    def resumen_de_ventas(self,dia,dineroDia):
 
+        print(f"Dinero generado durante el dia #{dia}: {dineroDia}")
         print(f"Dinero generado desde Apertura : {self.dinero_generado}")
 
 
