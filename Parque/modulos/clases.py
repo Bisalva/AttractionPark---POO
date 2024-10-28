@@ -8,7 +8,6 @@ class Estado(Enum):
 class Visitante():
 
     visitantes = 0
-
     def __init__(self,nombre,edad,altura,dinero,tickets):
         self.nombre = nombre
         self.edad = edad
@@ -32,19 +31,25 @@ class Visitante():
             self.tickets[2] += 1
         elif atraccion == 4:
             self.tickets[3] += 1
+    
+    def entregrar_ticket(self,atraccion_eleccion,atraccion_nombre):
         
-        print (self.tickets)
+        #atraccion = a cual se va a subir
+        if self.tickets[atraccion_eleccion-1] >= 1:
+            self.tickets[atraccion_eleccion-1] -= 1
+            print(f"{self.nombre} a entregado un ticket para {atraccion_nombre}")
+        else:
+            print("No tiene tickets para esa atraccion")
     
-    def entregrar_ticket(self):
-          pass
-    
-    def hacer_cola(self):
-          pass
+    def hacer_cola(self,atraccion):
+        print(f"{self.nombre} esta haciendo cola en ",atraccion)
+
     def mostrar_dinero(self):
         print(f"A {self.nombre} le quedan {self.dinero}")
     
     
 class Atraccion:
+
     def __init__(self,nombre,capacidad,duracion,estado,cola):
             self.nombre = nombre
             self.capacidad = capacidad
@@ -53,10 +58,36 @@ class Atraccion:
             self.cola = cola
 
     def info(self):
-        return f"[Nombre: {self.nombre}]-[Capacidad: {self.capacidad}]-[Duracion: {self.duracion}]-[Estado: {self.estado}]-[Cola: {self.cola}]"
+        #return f"[Nombre: {self.nombre}]-[Capacidad: {self.capacidad}]-[Duracion: {self.duracion}]-[Estado: {self.estado}]-[Cola: {self.cola}]"
+        return self.nombre
 
-    def iniciar_ronda(self):
-         print("Ronda Iniciada")
+    def iniciar_ronda(self,nombre,cola):
+        #paseoverde paseoazul paseoinfantil montañarusa
+        if(nombre == "PaseoVerde" and cola > 0):
+            self.cola -= 1
+        elif(nombre == "PaseoAzul" and cola >0):
+            if(cola < 3):
+                self.cola = 0
+            else:
+                self.cola -= 3
+        elif(nombre == "PaseoInfantil" and cola >= 2):
+            if(cola < 2):
+                self.cola = 0
+            else:
+                self.cola -= 2
+        elif(nombre == "MontañaRusa" and cola >= 1):
+            self.cola -=1
+
+        print(f"Se inicia la ronda de {nombre}, las personas que hay actualmente en cola son : {self.cola}")
+    
+    def contar_cola(self):
+        self.cola += 1
+
+    def borrar_cola(self):
+        self.cola -= 1
+
+    def estado_cola(self):
+        print("La cola en ",self.nombre,"es de : ",self.cola)
 
     def comenzar_mantenimiento(self):
         self.estado = Estado.FUERA_DE_SERVICIO
