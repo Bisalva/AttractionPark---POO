@@ -6,8 +6,9 @@ class Estado(Enum):
       FUERA_DE_SERVICIO = 0
 
 class Visitante():
-
+    #Contadores
     visitantes = 0
+    #Contadores de cuantos tickets se tienen de cada juego en total dia tras dia
     ContVisA = 0
     ContVisB = 0
     ContVisC = 0
@@ -19,7 +20,7 @@ class Visitante():
         self.altura = altura
         self.dinero = dinero
         self.tickets = tickets
-        Visitante.visitantes += 1
+        Visitante.visitantes += 1 #Contador para saber cuantos visitantes entran al parque
     
     # Metodo que retorna la cantidad de objetos creados, en este caso cuantos visitantes ingresan
     def contar_visitante(): 
@@ -66,12 +67,8 @@ class Atraccion:
             self.estado = estado
             self.cola = cola
 
-    def info(self):
-        #return f"[Nombre: {self.nombre}]-[Capacidad: {self.capacidad}]-[Duracion: {self.duracion}]-[Estado: {self.estado}]-[Cola: {self.cola}]"
-        return self.nombre
-
     def iniciar_ronda(self,nombre,cola):
-        #paseoverde paseoazul paseoinfantil montañarusa
+        
         if(nombre == "PaseoVerde" and cola > 0):
             self.cola -= 1
         elif(nombre == "PaseoAzul" and cola > 0):
@@ -101,7 +98,7 @@ class Atraccion:
     def finalizar_mantenimiento(self):
         self.estado = Estado.ACTIVO
         
-    def estadoInfo(self,numRandom):
+    def estadoInfo(self,numRandom):# entra un numero random entre 1 a 10, si es igual o menor a 2 el juego entra en mantenimiento, sino sigue activo
         if numRandom <= 2:
             Atraccion.comenzar_mantenimiento(self)
         else:
@@ -134,12 +131,10 @@ class Montaña_Rusa(Atraccion):
             return False
         else:
             return True
-      
-    def info(self):
-      return f"{self.altura_maxima} - {self.nombre} - {self.duracion}"
 
 
 class Ticket:
+    #Contador de cuantos tickets en total se han vendido (creado)
     idTicket = 0
     def __init__(self,numero,atraccion,precio,fecha_compra):
         self.numero = numero
@@ -147,12 +142,6 @@ class Ticket:
         self.precio = precio
         self.fecha_compra = fecha_compra
         Ticket.idTicket += 1
-
-    def asignar(self,atraccion,precio,fecha):
-        self.numero = Ticket.getID
-        self.atraccion = atraccion
-        self.precio = precio
-        self.fecha_compra = fecha
 
     def getID(self):
         return Ticket.idTicket

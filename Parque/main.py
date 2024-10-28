@@ -1,35 +1,37 @@
 from modulos.clases import *
 import random
 
+#Objetos
+#Los parametros tienen su nombre correspondiente para un mayor entendimiento al ser muchas variables ; ej : nombre = "paseoInfantil"
+
 parque = Parque(nombre="Praderas",juegos=["Paseo Verde","Paseo Azul","Paseo Infantil","Montaña Rusa"],dinero_generado=0)
 
 atraccion_item_A = Atraccion(nombre="PaseoVerde",capacidad=1,duracion=10,estado=Estado.ACTIVO,cola=0)
 atraccion_item_B = Atraccion(nombre="PaseoAzul",capacidad=3,duracion=10,estado=Estado.ACTIVO,cola=0)
 atraccion_item_INF = Atraccion_Infantil(edad_limite=10,nombre="PaseoInfantil",capacidad=2,duracion=5,estado=Estado.ACTIVO,cola=0)
 atraccion_item_MONTAÑA = Montaña_Rusa(velocidad_maxima=10,altura_maxima=140,extension=1000,nombre="MontañaRusa",capacidad=1,duracion=10,estado=Estado.ACTIVO,cola=0)
-#Los parametros tienen su nombre correspondiente para un mayor entendimiento al ser muchas variables ; ej : nombre = "paseoInfantil"
 
 visitante_item_a = Visitante(nombre="Benja",edad=25,altura=177,dinero=50000,tickets = [0,0,0,0])
 visitante_item_b = Visitante(nombre="Nico",edad=20,altura=180,dinero=70000,tickets = [0,0,0,0])
 visitante_item_c = Visitante(nombre="Felipe",edad=7,altura=130,dinero=30000,tickets = [0,0,0,0])
-#En mi script se usaran 3 objetos visitante, pero se pueden agregar los que se requieran
 
-dia = 0
-opcion = 0
+dia = 0 #Contador de dias
+opcion = 0 #Opcion a considerar para "terminar el dia" y seguir al otro dia o salir del programa // 0 = default, 1 = se detiene , 2 = pasa al otro dia 
 
 while True :
 
     dia += 1
-    dineroDiaEntrada = visitante_item_a.dinero + visitante_item_b.dinero + visitante_item_c.dinero
-    dineroDiaTotal = 0
+    dineroDiaEntrada = visitante_item_a.dinero + visitante_item_b.dinero + visitante_item_c.dinero #Necesario para el total de dinero generado en el dia
+    dineroDiaTotal = 0 #Dinero total de todos los dias
 
     print("\n====Parque de Atracciones====\n")
     print("Dia : ",dia)
     print(f"El dia de hoy entran al parque {Visitante.contar_visitante()} visitantes")
 
 
-    # Configuracion del estado inicial del parque (CAMBIAR A METODO) - Necesario un archivo extra para los metodos y simplificar el script
+    # Configuracion del estado inicial del parque
     print("\nEstado del Parque : \n")
+    #Leer el metodo estadoInfo en clase Atraccion
     atraccion_item_A.estadoInfo(random.randint(1,10))
     atraccion_item_B.estadoInfo(random.randint(1,10))
     atraccion_item_INF.estadoInfo(random.randint(1,10))
@@ -46,17 +48,19 @@ while True :
     selecB = random.randint(1,4)
     selecC = random.randint(1,4)
 
+    #Contadores para llevar a cabo la suma de tickets vendidos en total
     contA = 0
     contB = 0
     contC = 0
     contD = 0
 
-
+    #Se crea el objeto Ticket segun los parametros necesarios segun los valores de SelecA
     if visitante_item_a.dinero != 0:
         
+        #el cuerpo de la venta de tickets y restricciones se repite ( considere llevar esto a metodos para simplificar mas el script)
         if selecA == 1 and visitante_item_a.dinero >= 4000:
-            ticketA = Ticket(Ticket.getID,"Paseo Verde",4000,dia)
-            if atraccion_item_A.estado == Estado.ACTIVO:
+            ticketA = Ticket(Ticket.getID,"Paseo Verde",4000,dia) 
+            if atraccion_item_A.estado == Estado.ACTIVO:#RESTRICCION ESTADO DE ATRACCION
                 visitante_item_a.comprar_ticket(selecA)
                 contA += 1
                 visitante_item_a.dinero = parque.cobrar_ticket(ticketA.precio,visitante_item_a.dinero)
@@ -204,10 +208,8 @@ while True :
 
     print("\n")
 
-
+    #USO DE TICKET Y HACER COLA EN ATRACCION
     visitante_item_a.entregrar_ticket(selecA,ticketA.atraccion)
-    #AQUI RESTRICCION
-    
 
     if(ticketA.atraccion == "Paseo Verde" and atraccion_item_A.estado == Estado.ACTIVO):
         visitante_item_a.hacer_cola(atraccion_item_A.nombre)
@@ -215,17 +217,18 @@ while True :
     if(ticketA.atraccion == "Paseo Azul" and atraccion_item_B.estado == Estado.ACTIVO):
         visitante_item_a.hacer_cola(atraccion_item_B.nombre)
         atraccion_item_B.contar_cola()
-    if(ticketA.atraccion == "Paseo Infantil" and atraccion_item_INF.estado == Estado.ACTIVO):
-        if atraccion_item_INF.verificar_atraccion(visitante_item_a.edad) == True:
+    if(ticketA.atraccion == "Paseo Infantil" and atraccion_item_INF.estado == Estado.ACTIVO):#Restriccion de estado
+        if atraccion_item_INF.verificar_atraccion(visitante_item_a.edad) == True:#Restriccion de edad
             visitante_item_a.hacer_cola(atraccion_item_INF.nombre)
             atraccion_item_INF.contar_cola()
     if(ticketA.atraccion == "Montaña Rusa" and atraccion_item_MONTAÑA.estado == Estado.ACTIVO):
-        if atraccion_item_MONTAÑA.verificar_atraccion(visitante_item_a.altura) == True:
+        if atraccion_item_MONTAÑA.verificar_atraccion(visitante_item_a.altura) == True:#Restriccion de altura
             visitante_item_a.hacer_cola(atraccion_item_MONTAÑA.nombre)
             atraccion_item_MONTAÑA.contar_cola()
         
     
     print("\n")
+
     visitante_item_b.entregrar_ticket(selecB,ticketB.atraccion)
 
     if(ticketB.atraccion == "Paseo Verde" and atraccion_item_A.estado == Estado.ACTIVO):
@@ -263,6 +266,7 @@ while True :
 
     print("\n")
 
+    #Muestra el estado de las colas de los juegos 
     atraccion_item_A.estado_cola()
     atraccion_item_B.estado_cola()
     atraccion_item_INF.estado_cola()
@@ -270,7 +274,7 @@ while True :
 
     print("\n")
 
-    while True:
+    while True: # Inicia las rondas hasta que ya no haya nadie en cola respetando la capacidad maxima y las restricciones
         print("\n")
         if atraccion_item_A.cola != 0:
             atraccion_item_A.iniciar_ronda(atraccion_item_A.nombre,atraccion_item_A.cola)
@@ -299,7 +303,7 @@ while True :
 
 
     print("\n")
-
+    #Dinero restante de los visitantes / se conserva con el pasar de dias, por lo que hay un "fin" si se quiere seguir pasando dias indefinidamente
     visitante_item_a.mostrar_dinero()
     visitante_item_b.mostrar_dinero()
     visitante_item_c.mostrar_dinero()
@@ -307,8 +311,9 @@ while True :
     print("\n")
 
 
-    dineroDiaCierre = visitante_item_a.dinero + visitante_item_b.dinero + visitante_item_c.dinero
-    dineroDiaTotal = dineroDiaEntrada - dineroDiaCierre
+    dineroDiaCierre = visitante_item_a.dinero + visitante_item_b.dinero + visitante_item_c.dinero 
+    dineroDiaTotal = dineroDiaEntrada - dineroDiaCierre #Cuanto dinero se hizo en el dia
+    #Tickets vendidos durante el dia
     print(f"\nSe vendieron {contA} tickets de Paseo Verde , {contB} tickets de Paseo Azul, {contC} tickets de Paseo Infantil y {contD} de montaña rusa el dia de hoy")
 
     #Print de las ganancias desde la apertura
