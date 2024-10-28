@@ -30,10 +30,10 @@ while True :
 
     # Configuracion del estado inicial del parque (CAMBIAR A METODO) - Necesario un archivo extra para los metodos y simplificar el script
     print("\nEstado del Parque : \n")
-    atraccion_item_A.estadoInfo(random.randint(1,2))
-    atraccion_item_B.estadoInfo(random.randint(1,2))
-    atraccion_item_INF.estadoInfo(random.randint(1,2))
-    atraccion_item_MONTAÑA.estadoInfo(random.randint(1,2))
+    atraccion_item_A.estadoInfo(random.randint(1,10))
+    atraccion_item_B.estadoInfo(random.randint(1,10))
+    atraccion_item_INF.estadoInfo(random.randint(1,10))
+    atraccion_item_MONTAÑA.estadoInfo(random.randint(1,10))
     
     
     # Metodo que entrega una lista con el estado de cada juego ( Cada dia cambia )
@@ -46,31 +46,57 @@ while True :
     selecB = random.randint(1,4)
     selecC = random.randint(1,4)
 
+    contA = 0
+    contB = 0
+    contC = 0
+    contD = 0
+
+
     if visitante_item_a.dinero != 0:
         
         if selecA == 1 and visitante_item_a.dinero >= 4000:
             ticketA = Ticket(Ticket.getID,"Paseo Verde",4000,dia)
-            visitante_item_a.comprar_ticket(selecA)
-            visitante_item_a.dinero = parque.cobrar_ticket(ticketA.precio,visitante_item_a.dinero)
-            print(" ",visitante_item_a.nombre,"a comprado 1 ticket para : ",ticketA.atraccion, " , con un valor de ",ticketA.precio)
+            if atraccion_item_A.estado == Estado.ACTIVO:
+                visitante_item_a.comprar_ticket(selecA)
+                contA += 1
+                visitante_item_a.dinero = parque.cobrar_ticket(ticketA.precio,visitante_item_a.dinero)
+                print(" ",visitante_item_a.nombre,"a comprado 1 ticket para : ",ticketA.atraccion, " , con un valor de ",ticketA.precio)
+            else:
+                print("Paseo Verde esta en mantenimiento por lo que no pude ser usado hoy")
+                Ticket.idTicket -= 1
 
         elif selecA == 2 and visitante_item_a.dinero >= 3000:
             ticketA = Ticket(Ticket.getID,"Paseo Azul",3000,dia)
-            visitante_item_a.comprar_ticket(selecA)
-            visitante_item_a.dinero = parque.cobrar_ticket(ticketA.precio,visitante_item_a.dinero)
-            print(" ",visitante_item_a.nombre,"a comprado 1 ticket para : ",ticketA.atraccion, " , con un valor de ",ticketA.precio)
+            if atraccion_item_B.estado == Estado.ACTIVO:
+                visitante_item_a.comprar_ticket(selecA)
+                contB += 1
+                visitante_item_a.dinero = parque.cobrar_ticket(ticketA.precio,visitante_item_a.dinero)
+                print(" ",visitante_item_a.nombre,"a comprado 1 ticket para : ",ticketA.atraccion, " , con un valor de ",ticketA.precio)
+            else:
+                print("Paseo Azul esta en mantenimiento por lo que no pude ser usado hoy")
+                Ticket.idTicket -= 1
 
         elif selecA == 3 and visitante_item_a.dinero >= 2000:
             ticketA = Ticket(Ticket.getID,"Paseo Infantil",2000,dia)
-            visitante_item_a.comprar_ticket(selecA)
-            visitante_item_a.dinero = parque.cobrar_ticket(ticketA.precio,visitante_item_a.dinero)
-            print(" ",visitante_item_a.nombre,"a comprado 1 ticket para : ",ticketA.atraccion, " , con un valor de ",ticketA.precio)
+            if atraccion_item_INF.estado == Estado.ACTIVO:
+                visitante_item_a.comprar_ticket(selecA)
+                contC += 1
+                visitante_item_a.dinero = parque.cobrar_ticket(ticketA.precio,visitante_item_a.dinero)
+                print(" ",visitante_item_a.nombre,"a comprado 1 ticket para : ",ticketA.atraccion, " , con un valor de ",ticketA.precio)
+            else:
+                print("Paseo Infantil esta en mantenimiento por lo que no pude ser usado hoy")
+                Ticket.idTicket -= 1
 
         elif selecA == 4 and visitante_item_a.dinero >= 5000:
             ticketA = Ticket(Ticket.getID,"Montaña Rusa",5000,dia)
-            visitante_item_a.comprar_ticket(selecA)
-            visitante_item_a.dinero = parque.cobrar_ticket(ticketA.precio,visitante_item_a.dinero)
-            print(" ",visitante_item_a.nombre,"a comprado 1 ticket para : ",ticketA.atraccion, " , con un valor de ",ticketA.precio)
+            if atraccion_item_MONTAÑA.estado == Estado.ACTIVO:
+                visitante_item_a.comprar_ticket(selecA)
+                contD += 1
+                visitante_item_a.dinero = parque.cobrar_ticket(ticketA.precio,visitante_item_a.dinero)
+                print(" ",visitante_item_a.nombre,"a comprado 1 ticket para : ",ticketA.atraccion, " , con un valor de ",ticketA.precio)
+            else:
+                print("Montaña Rusa esta en mantenimiento por lo que no pude ser usado hoy")
+                Ticket.idTicket -= 1
 
         else :
             print(f"- {visitante_item_a.nombre} no tiene suficiente dinero")
@@ -80,27 +106,47 @@ while True :
         
         if selecB == 1 and visitante_item_b.dinero >= 4000:
             ticketB = Ticket(Ticket.getID,"Paseo Verde",4000,dia)
-            visitante_item_b.comprar_ticket(selecB)
-            visitante_item_b.dinero = parque.cobrar_ticket(ticketB.precio,visitante_item_b.dinero)
-            print(" ",visitante_item_b.nombre,"a comprado 1 ticket para : ",ticketB.atraccion, " , con un valor de ",ticketB.precio)
+            if atraccion_item_A.estado == Estado.ACTIVO:
+                visitante_item_b.comprar_ticket(selecB)
+                contA += 1
+                visitante_item_b.dinero = parque.cobrar_ticket(ticketB.precio,visitante_item_b.dinero)
+                print(" ",visitante_item_b.nombre,"a comprado 1 ticket para : ",ticketB.atraccion, " , con un valor de ",ticketB.precio)
+            else:
+                print("Paseo Verde esta en mantenimiento por lo que no pude ser usado hoy")
+                Ticket.idTicket -= 1
 
         elif selecB == 2 and visitante_item_b.dinero >= 3000:
             ticketB = Ticket(Ticket.getID,"Paseo Azul",3000,dia)
-            visitante_item_b.comprar_ticket(selecB)
-            visitante_item_b.dinero = parque.cobrar_ticket(ticketB.precio,visitante_item_b.dinero)
-            print(" ",visitante_item_b.nombre,"a comprado 1 ticket para : ",ticketB.atraccion, " , con un valor de ",ticketB.precio)
+            if atraccion_item_B.estado == Estado.ACTIVO:
+                visitante_item_b.comprar_ticket(selecB)
+                contB += 1
+                visitante_item_b.dinero = parque.cobrar_ticket(ticketB.precio,visitante_item_b.dinero)
+                print(" ",visitante_item_b.nombre,"a comprado 1 ticket para : ",ticketB.atraccion, " , con un valor de ",ticketB.precio)
+            else:
+                print("Paseo Azul esta en mantenimiento por lo que no pude ser usado hoy")
+                Ticket.idTicket -= 1
 
         elif selecB == 3 and visitante_item_b.dinero >= 2000:
             ticketB = Ticket(Ticket.getID,"Paseo Infantil",2000,dia)
-            visitante_item_b.comprar_ticket(selecB)
-            visitante_item_b.dinero = parque.cobrar_ticket(ticketB.precio,visitante_item_b.dinero)
-            print(" ",visitante_item_b.nombre,"a comprado 1 ticket para : ",ticketB.atraccion, " , con un valor de ",ticketB.precio)
+            if atraccion_item_INF.estado == Estado.ACTIVO:
+                visitante_item_b.comprar_ticket(selecB)
+                contC += 1
+                visitante_item_b.dinero = parque.cobrar_ticket(ticketB.precio,visitante_item_b.dinero)
+                print(" ",visitante_item_b.nombre,"a comprado 1 ticket para : ",ticketB.atraccion, " , con un valor de ",ticketB.precio)
+            else:
+                print("Paseo Infantil esta en mantenimiento por lo que no pude ser usado hoy")
+                Ticket.idTicket -= 1
 
         elif selecB == 4 and visitante_item_b.dinero >= 5000:
             ticketB = Ticket(Ticket.getID,"Montaña Rusa",5000,dia)
-            visitante_item_b.comprar_ticket(selecB)
-            visitante_item_b.dinero = parque.cobrar_ticket(ticketB.precio,visitante_item_b.dinero)
-            print(" ",visitante_item_b.nombre,"a comprado 1 ticket para : ",ticketB.atraccion, " , con un valor de ",ticketB.precio)
+            if atraccion_item_MONTAÑA.estado == Estado.ACTIVO:
+                visitante_item_b.comprar_ticket(selecB)
+                contD += 1
+                visitante_item_b.dinero = parque.cobrar_ticket(ticketB.precio,visitante_item_b.dinero)
+                print(" ",visitante_item_b.nombre,"a comprado 1 ticket para : ",ticketB.atraccion, " , con un valor de ",ticketB.precio)
+            else:
+                print("Montaña Rusa esta en mantenimiento por lo que no pude ser usado hoy")
+                Ticket.idTicket -= 1
 
         else :
             print(f"- {visitante_item_b.nombre} no tiene suficiente dinero")
@@ -110,27 +156,47 @@ while True :
         
         if selecC == 1 and visitante_item_c.dinero >= 4000:
             ticketC = Ticket(Ticket.getID,"Paseo Verde",4000,dia)
-            visitante_item_c.comprar_ticket(selecC)
-            visitante_item_c.dinero = parque.cobrar_ticket(ticketC.precio,visitante_item_c.dinero)
-            print(" ",visitante_item_c.nombre,"a comprado 1 ticket para : ",ticketC.atraccion, " , con un valor de ",ticketC.precio)
+            if atraccion_item_A.estado == Estado.ACTIVO:
+                visitante_item_c.comprar_ticket(selecC)
+                contA += 1
+                visitante_item_c.dinero = parque.cobrar_ticket(ticketC.precio,visitante_item_c.dinero)
+                print(" ",visitante_item_c.nombre,"a comprado 1 ticket para : ",ticketC.atraccion, " , con un valor de ",ticketC.precio)
+            else:
+                print("Paseo Verde esta en mantenimiento por lo que no pude ser usado hoy")
+                Ticket.idTicket -= 1
 
         elif selecC == 2 and visitante_item_c.dinero >= 3000:
             ticketC = Ticket(Ticket.getID,"Paseo Azul",3000,dia)
-            visitante_item_c.comprar_ticket(selecC)
-            visitante_item_c.dinero = parque.cobrar_ticket(ticketC.precio,visitante_item_c.dinero)
-            print(" ",visitante_item_c.nombre,"a comprado 1 ticket para : ",ticketC.atraccion, " , con un valor de ",ticketC.precio)
+            if atraccion_item_B.estado == Estado.ACTIVO:
+                visitante_item_c.comprar_ticket(selecC)
+                contB += 1
+                visitante_item_c.dinero = parque.cobrar_ticket(ticketC.precio,visitante_item_c.dinero)
+                print(" ",visitante_item_c.nombre,"a comprado 1 ticket para : ",ticketC.atraccion, " , con un valor de ",ticketC.precio)
+            else:
+                print("Paseo Azul esta en mantenimiento por lo que no pude ser usado hoy")
+                Ticket.idTicket -= 1
 
         elif selecC == 3 and visitante_item_c.dinero >= 2000:
             ticketC = Ticket(Ticket.getID,"Paseo Infantil",2000,dia)
-            visitante_item_c.comprar_ticket(selecC)
-            visitante_item_c.dinero = parque.cobrar_ticket(ticketC.precio,visitante_item_c.dinero)
-            print(" ",visitante_item_c.nombre,"a comprado 1 ticket para : ",ticketC.atraccion, " , con un valor de ",ticketC.precio)
+            if atraccion_item_INF.estado == Estado.ACTIVO:
+                visitante_item_c.comprar_ticket(selecC)
+                contC += 1
+                visitante_item_c.dinero = parque.cobrar_ticket(ticketC.precio,visitante_item_c.dinero)
+                print(" ",visitante_item_c.nombre,"a comprado 1 ticket para : ",ticketC.atraccion, " , con un valor de ",ticketC.precio)
+            else:
+                print("Paseo Infantil esta en mantenimiento por lo que no pude ser usado hoy")
+                Ticket.idTicket -= 1
 
         elif selecC == 4 and visitante_item_c.dinero >= 5000:
             ticketC = Ticket(Ticket.getID,"Montaña Rusa",5000,dia)
-            visitante_item_c.comprar_ticket(selecC)
-            visitante_item_c.dinero = parque.cobrar_ticket(ticketC.precio,visitante_item_c.dinero)
-            print(" ",visitante_item_c.nombre,"a comprado 1 ticket para : ",ticketC.atraccion, " , con un valor de ",ticketC.precio)
+            if atraccion_item_MONTAÑA.estado == Estado.ACTIVO:
+                visitante_item_c.comprar_ticket(selecC)
+                contD += 1
+                visitante_item_c.dinero = parque.cobrar_ticket(ticketC.precio,visitante_item_c.dinero)
+                print(" ",visitante_item_c.nombre,"a comprado 1 ticket para : ",ticketC.atraccion, " , con un valor de ",ticketC.precio)
+            else:
+                print("Montaña Rusa esta en mantenimiento por lo que no pude ser usado hoy")
+                Ticket.idTicket -= 1
 
         else :
             print(f"- {visitante_item_c.nombre} no tiene suficiente dinero")
@@ -143,17 +209,17 @@ while True :
     #AQUI RESTRICCION
     
 
-    if(ticketA.atraccion == "Paseo Verde"):
+    if(ticketA.atraccion == "Paseo Verde" and atraccion_item_A.estado == Estado.ACTIVO):
         visitante_item_a.hacer_cola(atraccion_item_A.nombre)
         atraccion_item_A.contar_cola()
-    if(ticketA.atraccion == "Paseo Azul"):
+    if(ticketA.atraccion == "Paseo Azul" and atraccion_item_B.estado == Estado.ACTIVO):
         visitante_item_a.hacer_cola(atraccion_item_B.nombre)
         atraccion_item_B.contar_cola()
-    if(ticketA.atraccion == "Paseo Infantil"):
+    if(ticketA.atraccion == "Paseo Infantil" and atraccion_item_INF.estado == Estado.ACTIVO):
         if atraccion_item_INF.verificar_atraccion(visitante_item_a.edad) == True:
             visitante_item_a.hacer_cola(atraccion_item_INF.nombre)
             atraccion_item_INF.contar_cola()
-    if(ticketA.atraccion == "Montaña Rusa"):
+    if(ticketA.atraccion == "Montaña Rusa" and atraccion_item_MONTAÑA.estado == Estado.ACTIVO):
         if atraccion_item_MONTAÑA.verificar_atraccion(visitante_item_a.altura) == True:
             visitante_item_a.hacer_cola(atraccion_item_MONTAÑA.nombre)
             atraccion_item_MONTAÑA.contar_cola()
@@ -162,17 +228,17 @@ while True :
     print("\n")
     visitante_item_b.entregrar_ticket(selecB,ticketB.atraccion)
 
-    if(ticketB.atraccion == "Paseo Verde"):
+    if(ticketB.atraccion == "Paseo Verde" and atraccion_item_A.estado == Estado.ACTIVO):
         visitante_item_b.hacer_cola(atraccion_item_A.nombre)
         atraccion_item_A.contar_cola()
-    if(ticketB.atraccion == "Paseo Azul"):
+    if(ticketB.atraccion == "Paseo Azul" and atraccion_item_B.estado == Estado.ACTIVO):
         visitante_item_b.hacer_cola(atraccion_item_B.nombre)
         atraccion_item_B.contar_cola()
-    if(ticketB.atraccion == "Paseo Infantil"):
+    if(ticketB.atraccion == "Paseo Infantil" and atraccion_item_INF.estado == Estado.ACTIVO):
         if atraccion_item_INF.verificar_atraccion(visitante_item_b.edad) == True:
             visitante_item_b.hacer_cola(atraccion_item_INF.nombre)
             atraccion_item_INF.contar_cola()
-    if(ticketB.atraccion == "Montaña Rusa"):
+    if(ticketB.atraccion == "Montaña Rusa" and atraccion_item_MONTAÑA.estado == Estado.ACTIVO):
         if atraccion_item_MONTAÑA.verificar_atraccion(visitante_item_b.altura) == True:
             visitante_item_b.hacer_cola(atraccion_item_MONTAÑA.nombre)
             atraccion_item_MONTAÑA.contar_cola()
@@ -180,17 +246,17 @@ while True :
     print("\n")
     visitante_item_c.entregrar_ticket(selecC,ticketC.atraccion)
 
-    if(ticketC.atraccion == "Paseo Verde"):
+    if(ticketC.atraccion == "Paseo Verde" and atraccion_item_A.estado == Estado.ACTIVO):
         visitante_item_c.hacer_cola(atraccion_item_A.nombre)
         atraccion_item_A.contar_cola()
-    if(ticketC.atraccion == "Paseo Azul"):
+    if(ticketC.atraccion == "Paseo Azul" and atraccion_item_B.estado == Estado.ACTIVO):
         visitante_item_c.hacer_cola(atraccion_item_B.nombre)
         atraccion_item_B.contar_cola()
-    if(ticketC.atraccion == "Paseo Infantil"):
+    if(ticketC.atraccion == "Paseo Infantil" and atraccion_item_INF.estado == Estado.ACTIVO):
         if atraccion_item_INF.verificar_atraccion(visitante_item_c.edad) == True:
             visitante_item_c.hacer_cola(atraccion_item_INF.nombre)
             atraccion_item_INF.contar_cola()
-    if(ticketC.atraccion == "Montaña Rusa"):
+    if(ticketC.atraccion == "Montaña Rusa" and atraccion_item_MONTAÑA.estado == Estado.ACTIVO):
         if atraccion_item_MONTAÑA.verificar_atraccion(visitante_item_c.altura) == True:
             visitante_item_c.hacer_cola(atraccion_item_MONTAÑA.nombre)
             atraccion_item_MONTAÑA.contar_cola()
@@ -243,10 +309,11 @@ while True :
 
     dineroDiaCierre = visitante_item_a.dinero + visitante_item_b.dinero + visitante_item_c.dinero
     dineroDiaTotal = dineroDiaEntrada - dineroDiaCierre
+    print(f"\nSe vendieron {contA} tickets de Paseo Verde , {contB} tickets de Paseo Azul, {contC} tickets de Paseo Infantil y {contD} de montaña rusa el dia de hoy")
 
     #Print de las ganancias desde la apertura
     parque.resumen_de_ventas(dia,dineroDiaTotal,Ticket.idTicket)
-
+    print(f"\nSe han vendido desde la apertura {Visitante.ContVisA} tickets de Paseo Verde, {Visitante.ContVisB} de Paseo Azul, {Visitante.ContVisC} de Paseo Infantil y {Visitante.ContVisD} de Montaña Rusa")
     opcion = int(input("\nSalir de la Simulacion del Parque :\n 1 - SI \n 2 - NO \n Opcion : "))
     print("\n")
     #opcion = 1
@@ -254,16 +321,4 @@ while True :
         break
     
 
-
-
-
-
-
-# visitante_item_a.dinero = parque.cobrar_ticket(1000,visitante_item_a.dinero) - ej : Actualizar valores de 1 objeto
-# atraccion_item_INF.verificar_atraccion(visitante_item_a.edad) - Llama a una funcion con parametros a usar 
-# atraccion_item_A.iniciar_ronda() - Llama la funcion
-# atraccion_item_INF.iniciar_ronda() Llama la funcion desde la Herencia
-# print (atraccion_item_INF.info()) - Imprime la informacion de Atraccion (Herencia)
-# print (atraccion_item_A.estadoInfo()) - Imprime la informacion de Atraccion
-# print (visitante_item_a.info()) - Imprime la informacion de Visitante
 

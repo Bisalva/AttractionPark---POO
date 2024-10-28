@@ -8,6 +8,11 @@ class Estado(Enum):
 class Visitante():
 
     visitantes = 0
+    ContVisA = 0
+    ContVisB = 0
+    ContVisC = 0
+    ContVisD = 0
+
     def __init__(self,nombre,edad,altura,dinero,tickets):
         self.nombre = nombre
         self.edad = edad
@@ -25,12 +30,16 @@ class Visitante():
         # 1 = Paseo Verde ; 2 = Paseo Azul ; 3 = Paseo Infantil ; 4 = Montaña Rusa
         if atraccion == 1:
             self.tickets[0] += 1
+            Visitante.ContVisA +=1
         elif atraccion == 2:
             self.tickets[1] += 1
+            Visitante.ContVisB +=1
         elif atraccion == 3:
             self.tickets[2] += 1
+            Visitante.ContVisC +=1
         elif atraccion == 4:
             self.tickets[3] += 1
+            Visitante.ContVisD +=1
     
     def entregrar_ticket(self,atraccion_eleccion,atraccion_nombre):
         
@@ -93,7 +102,7 @@ class Atraccion:
         self.estado = Estado.ACTIVO
         
     def estadoInfo(self,numRandom):
-        if numRandom == 1:
+        if numRandom <= 2:
             Atraccion.comenzar_mantenimiento(self)
         else:
             Atraccion.finalizar_mantenimiento(self)
