@@ -119,8 +119,12 @@ class Montaña_Rusa(Atraccion):
       self.altura_maxima = altura_maxima
       self.extension = extension
 
-    def verificar_atraccion(self):#validar altura solo pueden 140cm o mas
-      pass
+    def verificar_atraccion(self,altura):#validar altura solo pueden 140cm o mas
+        if(altura < 140):
+            print("\n No puede subir a la atraccion ya que esta chiquito")
+            return False
+        else:
+            return True
       
     def info(self):
       return f"{self.altura_maxima} - {self.nombre} - {self.duracion}"

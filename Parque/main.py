@@ -154,8 +154,10 @@ while True :
             visitante_item_a.hacer_cola(atraccion_item_INF.nombre)
             atraccion_item_INF.contar_cola()
     if(ticketA.atraccion == "Montaña Rusa"):
-        visitante_item_a.hacer_cola(atraccion_item_MONTAÑA.nombre)
-        atraccion_item_MONTAÑA.contar_cola()
+        if atraccion_item_MONTAÑA.verificar_atraccion(visitante_item_a.altura) == True:
+            visitante_item_a.hacer_cola(atraccion_item_MONTAÑA.nombre)
+            atraccion_item_MONTAÑA.contar_cola()
+        
     
     print("\n")
     visitante_item_b.entregrar_ticket(selecB,ticketB.atraccion)
@@ -171,8 +173,9 @@ while True :
             visitante_item_b.hacer_cola(atraccion_item_INF.nombre)
             atraccion_item_INF.contar_cola()
     if(ticketB.atraccion == "Montaña Rusa"):
-        visitante_item_b.hacer_cola(atraccion_item_MONTAÑA.nombre)
-        atraccion_item_MONTAÑA.contar_cola()
+        if atraccion_item_MONTAÑA.verificar_atraccion(visitante_item_b.altura) == True:
+            visitante_item_b.hacer_cola(atraccion_item_MONTAÑA.nombre)
+            atraccion_item_MONTAÑA.contar_cola()
     
     print("\n")
     visitante_item_c.entregrar_ticket(selecC,ticketC.atraccion)
@@ -188,8 +191,9 @@ while True :
             visitante_item_c.hacer_cola(atraccion_item_INF.nombre)
             atraccion_item_INF.contar_cola()
     if(ticketC.atraccion == "Montaña Rusa"):
-        visitante_item_c.hacer_cola(atraccion_item_MONTAÑA.nombre)
-        atraccion_item_MONTAÑA.contar_cola()
+        if atraccion_item_MONTAÑA.verificar_atraccion(visitante_item_c.altura) == True:
+            visitante_item_c.hacer_cola(atraccion_item_MONTAÑA.nombre)
+            atraccion_item_MONTAÑA.contar_cola()
 
     print("\n")
 
