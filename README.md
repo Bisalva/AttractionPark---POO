@@ -11,4 +11,5 @@
   
 - Entrega Original = Septiembre ( No Entregado )
 - Revision Externa a Evaluacion = 28/10 - 4/7 ( Falta mejorar bastante, lógicas de metodos, metodos sin sentido, estructura del script, metodos mas avanzados)
+- Revision con aviso 1 dia antes de la misma, por lo que el script y sus clases y objetos no fueron los ideales, pero funcionales, por lo que falta mejorar igualmente.
 - Se seguira avanzando el trabajo hasta quedar conforme con el resultado final.
